@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sandi Zikrullah — Portfolio
 
-## Getting Started
+Bilingual (Indonesian / English) developer portfolio built with Next.js 16 (App Router), TypeScript, Tailwind CSS v4, Framer Motion and Lucide React.
 
-First, run the development server:
+## Run locally
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000  (redirects to /id)
+npm run build      # production build
+npm run start      # serve the production build
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Set `NEXT_PUBLIC_SITE_URL` (e.g. `https://your-domain.com`) in production so canonical, hreflang and Open Graph URLs are correct.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Languages
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `/id` Indonesian (default, `/` redirects here) and `/en` English.
+- UI copy: `src/content/translations.ts` (typed; a missing key in either language is a compile error).
+- Projects, skills and education: `src/content/*.ts`, each with `id` / `en` text.
 
-## Learn More
+## Replacing placeholders
 
-To learn more about Next.js, take a look at the following resources:
+| What | Where |
+| --- | --- |
+| Email address | `email` in `src/content/profile.ts` |
+| LinkedIn URL | `linkedin` in `src/content/profile.ts` |
+| Portrait | put the file in `public/` and set `portrait` in `src/content/profile.ts` |
+| Project tech stack | `stack` in `src/content/projects.ts` (leave empty until confirmed) |
+| Project repo / demo links | `links.repo` / `links.demo` in `src/content/projects.ts` |
+| Project previews | illustrations in `src/components/visuals/project-visuals.tsx`; swap for real screenshots when available |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+├── app/[lang]/        root layout (html lang, metadata), page, opengraph-image
+├── components/
+│   ├── ui/            Container, Section, Button, Tag
+│   ├── layout/        SiteHeader, MobileNav, LanguageSwitcher, SiteFooter
+│   ├── sections/      Hero, Expertise, Projects, Stack, About, Education, Contact
+│   ├── visuals/       frames, hero composition, project compositions, portrait
+│   └── motion/        MotionProvider, Enter, ScrollProgress, WordHighlight
+├── content/           profile, projects, skills, education, navigation, translations
+├── lib/               locales, i18n, fonts, site, cn
+├── proxy.ts           redirects unprefixed paths to /id
+└── types/
+```
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Design tokens (colour, type scale, radius, spacing) live in `src/app/globals.css`.

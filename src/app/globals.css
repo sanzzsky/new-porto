@@ -1,26 +1,144 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+ * Design system — "Dark Premium Engineering"
+ *
+ * Colour roles
+ *   bg / surface / elevated  three charcoal steps, each lighter than the last
+ *   accent                   emerald used for FILLS (buttons, bars). White on it = 5.4:1
+ *   accent-deep              hover fill for accent buttons (white on it = 6.9:1)
+ *   accent-text              brighter emerald for TEXT, icons and focus rings on dark (9.5:1 on bg)
+ *   fg / muted / subtle      primary / secondary / tertiary text (all >= 4.5:1 on bg, surface, elevated)
+ *
+ * Spacing: Tailwind's 4px scale, plus two fluid tokens (gutter, section).
+ * Radius: sharp-leaning. sm 4px (chips), md 8px (buttons, inputs), lg 14px (cards, frames).
+ * Motion: 200ms for state changes, 300-600ms for entrances; ease-out only.
+ * Breakpoints: Tailwind defaults (sm 640, md 768, lg 1024, xl 1280).
+ */
+@theme {
+  --color-bg: #101312;
+  --color-surface: #1c2420;
+  --color-elevated: #242d28;
+  --color-accent: #0e7a4f;
+  --color-accent-deep: #0b6841;
+  --color-accent-text: #3fd08f;
+  --color-fg: #f3f5f4;
+  --color-muted: #a6b1aa;
+  --color-subtle: #8a968f;
+  --color-border: rgb(255 255 255 / 0.1);
+  --color-border-strong: rgb(255 255 255 / 0.2);
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.875rem;
+
+  --container-wrap: 76rem;
+  --spacing-gutter: clamp(1.25rem, 4vw, 2.5rem);
+  --spacing-section: clamp(4.5rem, 9vw, 8rem);
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Type scale (fluid) */
+  --text-display: clamp(2.5rem, 1.5rem + 3.6vw, 4.5rem);
+  --text-display--line-height: 1.04;
+  --text-display--letter-spacing: -0.03em;
+  --text-title: clamp(2rem, 1.35rem + 2.6vw, 3.25rem);
+  --text-title--line-height: 1.06;
+  --text-title--letter-spacing: -0.025em;
+  --text-heading: clamp(1.375rem, 1.2rem + 0.8vw, 1.875rem);
+  --text-heading--line-height: 1.15;
+  --text-heading--letter-spacing: -0.02em;
+  --text-lead: clamp(1.0625rem, 1rem + 0.35vw, 1.3125rem);
+  --text-lead--line-height: 1.6;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    scroll-padding-top: 4.5rem;
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    overflow-x: clip;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent-text);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: #fff;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Underline that draws in on hover/focus. */
+@utility link-draw {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.5rem;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.28s var(--ease-out);
+  }
+  &:hover::after,
+  &:focus-visible::after {
+    transform: scaleX(1);
+  }
+}
+
+/* Native <dialog> entrance for project details. */
+dialog[open] {
+  animation: dialog-in 0.22s var(--ease-out);
+}
+dialog[open]::backdrop {
+  animation: backdrop-in 0.22s ease-out;
+}
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
