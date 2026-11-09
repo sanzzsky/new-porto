@@ -121,6 +121,12 @@ const id = {
     backToTop: "Kembali ke atas",
     rights: "Seluruh hak cipta dilindungi.",
   },
+  notFound: {
+    code: "404",
+    title: "Halaman tidak ditemukan",
+    description: "Alamat yang Anda buka tidak ada di situs ini.",
+    home: "Kembali ke beranda",
+  },
 };
 
 export type Dictionary = typeof id;
@@ -240,6 +246,12 @@ const en: Dictionary = {
     navLabel: "Footer navigation",
     backToTop: "Back to top",
     rights: "All rights reserved.",
+  },
+  notFound: {
+    code: "404",
+    title: "Page not found",
+    description: "That address is not on this site.",
+    home: "Back to home",
   },
 };
 

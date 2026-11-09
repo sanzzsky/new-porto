@@ -1,9 +1,13 @@
-"use client";
-
 import type { ReactNode } from "react";
-import { m } from "framer-motion";
+import { cn } from "@/lib/cn";
 
-/** One-time entrance on load. Used for the hero only. */
+/**
+ * One-time entrance on load (hero only). This is a Server Component driven by
+ * a CSS animation (`animate-enter`, defined in globals.css), so the content is
+ * already visible in the server-rendered HTML: nothing waits for hydration, and
+ * it still shows with JavaScript disabled. Under prefers-reduced-motion the
+ * animation is removed entirely.
+ */
 export function Enter({
   children,
   delay = 0,
@@ -14,13 +18,11 @@ export function Enter({
   className?: string;
 }) {
   return (
-    <m.div
-      className={className}
-      initial={{ opacity: 0, y: 14 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay, ease: "easeOut" }}
+    <div
+      className={cn("animate-enter motion-reduce:animate-none", className)}
+      style={delay ? { animationDelay: `${delay}s` } : undefined}
     >
       {children}
-    </m.div>
+    </div>
   );
 }

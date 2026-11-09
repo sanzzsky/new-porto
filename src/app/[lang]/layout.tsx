@@ -6,7 +6,7 @@ import { ScrollProgress } from "@/components/motion/scroll-progress";
 import { fontVariables } from "@/lib/fonts";
 import { getDictionary, getLocale } from "@/lib/i18n";
 import { hasLocale, locales, localeMeta } from "@/lib/locales";
-import { siteUrl } from "@/lib/site";
+import { getSiteUrl } from "@/lib/site";
 import "../globals.css";
 
 export function generateStaticParams() {
@@ -25,27 +25,35 @@ export async function generateMetadata({
   if (!hasLocale(lang)) notFound();
   const { meta } = translations[lang];
   const other = lang === "id" ? "en" : "id";
+  // Null in production when NEXT_PUBLIC_SITE_URL is missing/invalid (see lib/site.ts).
+  const siteUrl = getSiteUrl();
 
   return {
-    metadataBase: siteUrl,
     title: meta.title,
     description: meta.description,
     authors: [{ name: "Sandi Zikrullah", url: "https://github.com/sanzzsky" }],
-    alternates: {
-      canonical: `/${lang}`,
-      languages: { id: "/id", en: "/en", "x-default": "/id" },
-    },
+    // Everything below needs an absolute URL. Without a site URL it is left out
+    // entirely rather than emitted as relative or localhost URLs.
+    ...(siteUrl && {
+      metadataBase: siteUrl,
+      alternates: {
+        canonical: `/${lang}`,
+        languages: { id: "/id", en: "/en", "x-default": "/id" },
+      },
+    }),
     openGraph: {
       type: "website",
       siteName: "Sandi Zikrullah",
       title: meta.title,
       description: meta.description,
-      url: `/${lang}`,
       locale: localeMeta[lang].og,
       alternateLocale: [localeMeta[other].og],
+      // Explicit empty images stops the file-based opengraph-image from being
+      // attached with a localhost URL when no site URL is configured.
+      ...(siteUrl ? { url: `/${lang}` } : { images: [] }),
     },
     twitter: {
-      card: "summary_large_image",
+      card: siteUrl ? "summary_large_image" : "summary",
       title: meta.title,
       description: meta.description,
     },
