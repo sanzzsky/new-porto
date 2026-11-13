@@ -105,9 +105,12 @@ export function Projects({ lang, t }: { lang: Lang; t: Dictionary }) {
         intro={t.projects.intro}
       />
 
-      <ol className="mt-14 grid gap-x-6 gap-y-16 md:grid-cols-2 lg:grid-cols-12">
+      {/* grid-cols-1 uses minmax(0,1fr) tracks: without it the implicit single
+          column grew to the illustration's min-content width and overflowed
+          320px viewports by ~17px. */}
+      <ol className="mt-14 grid grid-cols-1 gap-x-6 gap-y-16 md:grid-cols-2 lg:grid-cols-12">
         {projects.map((project, index) => (
-          <li key={project.slug} className={cn("group flex flex-col", spans[index])}>
+          <li key={project.slug} className={cn("group flex min-w-0 flex-col", spans[index])}>
             <div className="h-72 overflow-hidden rounded-lg border border-border bg-surface sm:h-80 lg:h-[22rem]">
               <div className="h-full w-full transition-transform duration-500 ease-out group-hover:scale-[1.02]">
                 <ProjectVisual slug={project.slug} />

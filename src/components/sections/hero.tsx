@@ -14,8 +14,11 @@ export function Hero({ t }: { t: Dictionary }) {
       aria-labelledby="hero-title"
       className="border-b border-border"
     >
-      <Container className="grid items-center gap-12 py-12 sm:py-16 lg:min-h-[calc(100svh-4rem)] lg:grid-cols-12 lg:gap-10">
-        <div className="lg:col-span-7">
+      {/* Two columns from 768px up so the composition is not pushed below the
+          first screen on tablets. The 7/5 split keeps the headline wide enough
+          for four lines at desktop instead of six. */}
+      <Container className="grid items-center gap-12 py-12 sm:py-16 md:grid-cols-12 md:gap-8 lg:min-h-[calc(88svh-4rem)] lg:gap-12">
+        <div className="md:col-span-7">
           <Enter>
             <p className="flex items-center gap-3 font-mono text-[0.8125rem] uppercase tracking-[0.14em] text-accent-text">
               <span aria-hidden="true" className="size-2 bg-accent-text" />
@@ -54,7 +57,7 @@ export function Hero({ t }: { t: Dictionary }) {
           </Enter>
         </div>
 
-        <Enter delay={0.2} className="lg:col-span-5">
+        <Enter delay={0.2} className="md:col-span-5">
           <HeroComposition label={t.hero.visualLabel} />
         </Enter>
       </Container>

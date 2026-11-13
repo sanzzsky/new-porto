@@ -81,7 +81,8 @@ const id = {
       mobile: "Pengembangan Mobile",
       frontend: "Pengembangan Frontend",
       backend: "Backend & Database",
-      ai: "AI & Tools",
+      ai: "AI",
+      tools: "Tools",
     },
   },
   about: {
@@ -207,7 +208,8 @@ const en: Dictionary = {
       mobile: "Mobile Development",
       frontend: "Frontend Development",
       backend: "Backend & Database",
-      ai: "AI & Tools",
+      ai: "AI",
+      tools: "Tools",
     },
   },
   about: {

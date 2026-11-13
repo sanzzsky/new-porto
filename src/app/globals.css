@@ -8,7 +8,8 @@
  *   accent                   emerald used for FILLS (buttons, bars). White on it = 5.4:1
  *   accent-deep              hover fill for accent buttons (white on it = 6.9:1)
  *   accent-text              brighter emerald for TEXT, icons and focus rings on dark (9.5:1 on bg)
- *   fg / muted / subtle      primary / secondary / tertiary text (all >= 4.5:1 on bg, surface, elevated)
+ *   fg / muted / subtle      primary / secondary / tertiary text (all >= 4.5:1 on bg, surface, elevated;
+ *                            subtle is 7.1:1 on bg, 6.0:1 on surface, 5.4:1 on elevated)
  *
  * Spacing: Tailwind's 4px scale, plus two fluid tokens (gutter, section).
  * Radius: sharp-leaning. sm 4px (chips), md 8px (buttons, inputs), lg 14px (cards, frames).
@@ -24,7 +25,7 @@
   --color-accent-text: #3fd08f;
   --color-fg: #f3f5f4;
   --color-muted: #a6b1aa;
-  --color-subtle: #8a968f;
+  --color-subtle: #96a29a;
   --color-border: rgb(255 255 255 / 0.1);
   --color-border-strong: rgb(255 255 255 / 0.2);
 
@@ -72,6 +73,9 @@
     scroll-padding-top: 4.5rem;
     color-scheme: dark;
     -webkit-text-size-adjust: 100%;
+    /* Reserve the scrollbar gutter so opening a menu or dialog (which hides
+       overflow) cannot shift the layout sideways. */
+    scrollbar-gutter: stable;
   }
 
   @media (prefers-reduced-motion: no-preference) {

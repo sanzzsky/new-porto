@@ -24,8 +24,7 @@ export const stackGroups: Array<{ id: StackGroupId; items: string[] }> = [
     items: ["JavaScript", "TypeScript", "React", "Next.js", "Tailwind CSS"],
   },
   { id: "backend", items: ["Firebase", "REST API"] },
-  {
-    id: "ai",
-    items: ["Python", "LLM applications", "Prompt engineering", "GitHub"],
-  },
+  { id: "ai", items: ["Python", "LLM applications", "Prompt engineering"] },
+  // GitHub is a tool, not an AI technology, so it sits in its own group.
+  { id: "tools", items: ["GitHub"] },
 ];

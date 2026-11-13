@@ -47,7 +47,7 @@ export function LanguageSwitcher({
             aria-current={active ? "true" : undefined}
             onClick={active ? (event) => event.preventDefault() : undefined}
             className={cn(
-              "flex min-h-10 min-w-11 items-center justify-center rounded-[0.3125rem] px-2.5 font-mono text-[0.8125rem] font-medium transition-colors duration-200",
+              "flex min-h-11 min-w-11 items-center justify-center rounded-[0.3125rem] px-2.5 font-mono text-[0.8125rem] font-medium transition-colors duration-200",
               active ? "bg-elevated text-fg" : "text-muted hover:text-fg",
             )}
           >

@@ -40,7 +40,7 @@ export interface EducationEntry {
 }
 
 export type DisciplineId = "android" | "web" | "ai";
-export type StackGroupId = "mobile" | "frontend" | "backend" | "ai";
+export type StackGroupId = "mobile" | "frontend" | "backend" | "ai" | "tools";
 
 export interface Portrait {
   src: string;

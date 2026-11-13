@@ -3,19 +3,25 @@ import { notFound } from "next/navigation";
 import { translations } from "@/content/translations";
 import { hasLocale, locales } from "@/lib/locales";
 
-export const alt = "Sandi Zikrullah — Software Developer";
+/**
+ * Open Graph image, served per language at /id/og and /en/og.
+ *
+ * It is a plain Route Handler rather than the `opengraph-image` file convention
+ * because the file convention is always attached to every page: without a
+ * configured NEXT_PUBLIC_SITE_URL that produced meta tags pointing at
+ * `http://localhost:0`. The layout only references this image when a site URL
+ * exists, so production never emits a broken absolute image URL.
+ */
 export const size = { width: 1200, height: 630 };
-export const contentType = "image/png";
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
 }
 
-export default async function OpenGraphImage({
-  params,
-}: {
-  params: Promise<{ lang: string }>;
-}) {
+export async function GET(
+  _request: Request,
+  { params }: { params: Promise<{ lang: string }> },
+) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
   const { hero } = translations[lang];

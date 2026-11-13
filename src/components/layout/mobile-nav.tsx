@@ -5,6 +5,7 @@ import { AnimatePresence, m } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { buttonBase, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
+import { lockScroll, unlockScroll } from "@/lib/scroll-lock";
 
 export function MobileNav({
   links,
@@ -31,14 +32,17 @@ export function MobileNav({
     if (restoreFocus) buttonRef.current?.focus();
   }, []);
 
-  // Lock page scroll while the menu is open.
+  // Lock page scroll and take the rest of the page out of the tab order and the
+  // accessibility tree. The panel lives inside <header>, which stays interactive,
+  // so the toggle and the language switcher remain reachable.
   useEffect(() => {
     if (!open) return;
-    const root = document.documentElement;
-    const previous = root.style.overflow;
-    root.style.overflow = "hidden";
+    lockScroll();
+    const background = Array.from(document.querySelectorAll<HTMLElement>("main, footer"));
+    background.forEach((element) => element.setAttribute("inert", ""));
     return () => {
-      root.style.overflow = previous;
+      background.forEach((element) => element.removeAttribute("inert"));
+      unlockScroll();
     };
   }, [open]);
 
@@ -55,9 +59,18 @@ export function MobileNav({
     return () => query.removeEventListener("change", onChange);
   }, []);
 
-  // Escape closes; Tab is kept inside the toggle button + the menu links.
+  // Escape closes and returns focus to the trigger. Tab cycles through the
+  // header as a whole (toggle, language switcher, panel links), so the language
+  // switcher can be reached with the keyboard while the menu is open.
   useEffect(() => {
     if (!open) return;
+    const getFocusable = () => {
+      const header = buttonRef.current?.closest("header");
+      if (!header) return [];
+      return Array.from(
+        header.querySelectorAll<HTMLElement>("a[href], button:not([disabled])"),
+      ).filter((element) => element.offsetParent !== null);
+    };
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         event.preventDefault();
@@ -65,10 +78,8 @@ export function MobileNav({
         return;
       }
       if (event.key !== "Tab") return;
-      const focusable = [
-        buttonRef.current,
-        ...Array.from(panelRef.current?.querySelectorAll<HTMLElement>("a") ?? []),
-      ].filter((el): el is HTMLElement => el !== null);
+      const focusable = getFocusable();
+      if (focusable.length === 0) return;
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
       if (event.shiftKey && document.activeElement === first) {
@@ -91,7 +102,7 @@ export function MobileNav({
         aria-expanded={open}
         aria-controls={panelId}
         aria-label={open ? closeLabel : openLabel}
-        onClick={() => (open ? close(false) : setOpen(true))}
+        onClick={() => (open ? close(true) : setOpen(true))}
         className="flex size-11 items-center justify-center rounded-md border border-border text-fg transition-colors duration-200 hover:bg-elevated lg:hidden"
       >
         {open ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
@@ -115,7 +126,7 @@ export function MobileNav({
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    onClick={() => close(false)}
+                    onClick={() => close(true)}
                     className="flex min-h-16 items-center font-display text-heading font-semibold transition-colors duration-200 hover:text-accent-text"
                   >
                     {link.label}
@@ -125,7 +136,7 @@ export function MobileNav({
             </ul>
             <a
               href={ctaHref}
-              onClick={() => close(false)}
+              onClick={() => close(true)}
               className={cn(buttonBase, buttonVariants.primary, "mt-8 w-full")}
             >
               {ctaLabel}

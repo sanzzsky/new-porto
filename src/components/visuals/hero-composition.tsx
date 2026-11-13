@@ -11,19 +11,21 @@ export function HeroComposition({ label }: { label: string }) {
     <div
       role="img"
       aria-label={label}
-      className="relative mx-auto aspect-[5/4] w-full max-w-[34rem] lg:max-w-none"
+      className="relative mx-auto aspect-[5/4] w-full max-w-[34rem] md:aspect-square lg:aspect-[6/5] lg:max-w-none"
     >
       <div
         aria-hidden="true"
         className="absolute inset-0 overflow-hidden rounded-lg border border-border bg-surface/60"
       >
         {/* Web */}
-        <BrowserFrame className="absolute right-[3%] top-[8%] h-[56%] w-[78%]">
+        <BrowserFrame className="absolute right-[2%] top-[5%] h-[40%] w-[76%] lg:h-[48%]">
           <div className="flex h-full flex-col gap-2">
             <Bar className="h-2.5 w-1/3 bg-white/25" />
             <Bar className="w-4/5" />
             <Bar className="w-3/5" />
-            <div className="mt-auto grid grid-cols-3 gap-2">
+            {/* The tile row needs a stage tall enough to hold it without colliding
+                with the floating card, so it only appears from lg. */}
+            <div className="mt-auto hidden grid-cols-3 gap-2 lg:grid">
               {[Code, Layers, Code].map((Icon, i) => (
                 <div
                   key={i}
@@ -41,7 +43,7 @@ export function HeroComposition({ label }: { label: string }) {
         </BrowserFrame>
 
         {/* Android */}
-        <PhoneFrame className="absolute bottom-[5%] left-[4%] aspect-[9/19] w-[27%]">
+        <PhoneFrame className="absolute bottom-[3%] left-[2%] aspect-[9/19] w-[26%]">
           <Bar className="w-1/2 bg-white/25" />
           {[0, 1, 2, 3, 4].map((i) => (
             <div key={i} className={i > 2 ? "hidden items-center gap-1.5 sm:flex" : "flex items-center gap-1.5"}>
@@ -56,7 +58,7 @@ export function HeroComposition({ label }: { label: string }) {
         </PhoneFrame>
 
         {/* AI */}
-        <div className="absolute right-[7%] top-[42%] w-[46%] rounded-lg border border-border-strong bg-elevated p-2.5 shadow-[0_24px_48px_-24px_rgb(0_0_0/0.7)] sm:p-3">
+        <div className="absolute bottom-[3%] right-[2%] w-[44%] rounded-lg border border-border-strong bg-elevated p-2.5 shadow-[0_24px_48px_-24px_rgb(0_0_0/0.7)] sm:p-3">
           <div className="flex items-center gap-1.5">
             <Sparkles size={14} className="shrink-0 text-accent-text" />
             <Bar className="w-1/3 bg-white/25" />
@@ -65,7 +67,9 @@ export function HeroComposition({ label }: { label: string }) {
             <Bar className="bg-white/70" />
             <Bar className="w-2/3 bg-white/70" />
           </div>
-          <div className="mt-2 space-y-1">
+          {/* Extra body lines only where the stage is large enough to hold them
+              without colliding with the browser tile row. */}
+          <div className="mt-2 hidden space-y-1 lg:block">
             <Bar className="w-full" />
             <Bar className="w-5/6" />
             <Bar className="w-2/3" />

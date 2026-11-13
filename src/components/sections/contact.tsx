@@ -59,8 +59,9 @@ function Row({
 
 export function Contact({ t }: { t: Dictionary }) {
   const { email, linkedin, github, githubHandle } = profile;
+  // Snugger bottom padding: the footer already carries its own top spacing.
   return (
-    <Section id="contact" labelledBy="contact-title">
+    <Section id="contact" labelledBy="contact-title" className="pb-16 lg:pb-20">
       <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-7">
           <p className="font-mono text-[0.8125rem] uppercase tracking-[0.14em] text-accent-text">

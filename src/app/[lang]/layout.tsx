@@ -27,6 +27,15 @@ export async function generateMetadata({
   const other = lang === "id" ? "en" : "id";
   // Null in production when NEXT_PUBLIC_SITE_URL is missing/invalid (see lib/site.ts).
   const siteUrl = getSiteUrl();
+  // Served by the route handler at app/[lang]/og/route.tsx. Only referenced
+  // when an absolute base exists, so no social image URL is ever relative or
+  // pointed at localhost.
+  const ogImage = {
+    url: `/${lang}/og`,
+    width: 1200,
+    height: 630,
+    alt: meta.ogAlt,
+  };
 
   return {
     title: meta.title,
@@ -48,14 +57,13 @@ export async function generateMetadata({
       description: meta.description,
       locale: localeMeta[lang].og,
       alternateLocale: [localeMeta[other].og],
-      // Explicit empty images stops the file-based opengraph-image from being
-      // attached with a localhost URL when no site URL is configured.
-      ...(siteUrl ? { url: `/${lang}` } : { images: [] }),
+      ...(siteUrl ? { url: `/${lang}`, images: [ogImage] } : { images: [] }),
     },
     twitter: {
       card: siteUrl ? "summary_large_image" : "summary",
       title: meta.title,
       description: meta.description,
+      images: siteUrl ? [ogImage] : [],
     },
   };
 }

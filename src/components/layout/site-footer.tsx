@@ -15,7 +15,7 @@ export function SiteFooter({ t }: { t: Dictionary }) {
           </div>
 
           <nav aria-label={t.footer.navLabel}>
-            <ul className="flex flex-col">
+            <ul className="grid grid-cols-2 gap-x-8">
               {navItems.map((item) => (
                 <li key={item.id}>
                   <a

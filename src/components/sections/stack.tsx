@@ -1,4 +1,4 @@
-import { Brain, Database, Layers, Smartphone, type LucideIcon } from "lucide-react";
+import { Brain, Database, Layers, Smartphone, Wrench, type LucideIcon } from "lucide-react";
 import type { Dictionary } from "@/content/translations";
 import { stackGroups } from "@/content/skills";
 import { Section, SectionHeading } from "@/components/ui/section";
@@ -9,6 +9,7 @@ const icons: Record<StackGroupId, LucideIcon> = {
   frontend: Layers,
   backend: Database,
   ai: Brain,
+  tools: Wrench,
 };
 
 export function Stack({ t }: { t: Dictionary }) {
@@ -22,7 +23,7 @@ export function Stack({ t }: { t: Dictionary }) {
         intro={t.stack.intro}
       />
 
-      <div className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
         {stackGroups.map((group) => {
           const Icon = icons[group.id];
           const headingId = `stack-${group.id}`;
