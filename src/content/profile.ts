@@ -6,14 +6,14 @@ interface Profile {
   role: Localized;
   github: string;
   githubHandle: string;
-  /** TODO: add the real address. While null the site shows a marked placeholder. */
   email: string | null;
-  /** TODO: add the real profile URL. While null the site shows a marked placeholder. */
+  /** Full wa.me link: digits with the country code, no leading zero. */
+  whatsapp: string;
+  /** Readable phone number for the contact list. */
+  whatsappDisplay: string;
   linkedin: string | null;
-  /**
-   * TODO: add a real portrait, e.g.
-   * { src: "/portrait.jpg", width: 800, height: 1000 } with the file in /public.
-   */
+  /** Readable profile path for the contact list. */
+  linkedinDisplay: string;
   portrait: Portrait | null;
   copyrightYear: number;
 }
@@ -24,9 +24,12 @@ export const profile: Profile = {
   role: { id: "Software Developer", en: "Software Developer" },
   github: "https://github.com/sanzzsky",
   githubHandle: "sanzzsky",
-  email: null,
-  linkedin: null,
-  portrait: null,
+  email: "sandizikrullah.official@gmail.com",
+  whatsapp: "https://wa.me/6282311256308",
+  whatsappDisplay: "+62 823-1125-6308",
+  linkedin: "https://www.linkedin.com/in/sandi-zikrullah-7186a1253",
+  linkedinDisplay: "linkedin.com/in/sandi-zikrullah-7186a1253",
+  portrait: { src: "/profile.jpg", width: 1792, height: 2390 },
   // Fixed on purpose: reading the clock during prerender is not allowed with cacheComponents.
   copyrightYear: 2026,
 };
