@@ -16,15 +16,38 @@ export const disciplines: Array<{ id: DisciplineId; items: string[] }> = [
   },
 ];
 
-/** Technology overview, grouped. Add items here only once they are confirmed. */
+/**
+ * Technology overview, grouped by discipline. Names are the plain product or
+ * competency names — no proficiency levels, since none are measured.
+ */
 export const stackGroups: Array<{ id: StackGroupId; items: string[] }> = [
-  { id: "mobile", items: ["Kotlin", "Android Studio"] },
+  { id: "mobile", items: ["Kotlin", "XML", "Android Studio"] },
   {
     id: "frontend",
-    items: ["JavaScript", "TypeScript", "React", "Next.js", "Tailwind CSS"],
+    items: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Next.js", "Tailwind CSS"],
   },
-  { id: "backend", items: ["Firebase", "REST API"] },
-  { id: "ai", items: ["Python", "LLM applications", "Prompt engineering"] },
-  // GitHub is a tool, not an AI technology, so it sits in its own group.
-  { id: "tools", items: ["GitHub"] },
+  { id: "backend", items: ["PHP", "REST API"] },
+  { id: "database", items: ["MySQL", "Firebase"] },
+  {
+    id: "ai",
+    items: [
+      "Python",
+      "Machine Learning",
+      "LLM Applications",
+      "Prompt Engineering",
+      "Google Colab",
+      "Anaconda",
+    ],
+  },
+  { id: "gis", items: ["QGIS", "Spatial Data Processing", "Map Visualization"] },
+  { id: "game", items: ["Unity", "Unreal Engine"] },
+  {
+    id: "tools",
+    items: ["Git", "GitHub", "Visual Studio Code", "Cursor", "Software Testing"],
+  },
+  { id: "design", items: ["Figma", "Canva", "UI/UX Design"] },
+  {
+    id: "productivity",
+    items: ["Microsoft Office", "Data Management", "Report Preparation"],
+  },
 ];

@@ -1,4 +1,4 @@
-import type { EducationEntry } from "@/types";
+import type { CertificationEntry, EducationEntry } from "@/types";
 
 /**
  * Titles and dates are only filled in where the owner confirmed them.
@@ -11,20 +11,22 @@ export const education: EducationEntry[] = [
     institution: "Universitas Muhammadiyah Riau",
     title: { id: "Teknik Informatika", en: "Informatics Engineering" },
   },
+];
+
+/**
+ * Formal certificates. Training programmes and learning paths live in
+ * src/content/training.ts so the two are never presented as the same thing.
+ */
+export const certifications: CertificationEntry[] = [
   {
     id: "bangkit",
-    kind: "program",
-    institution: "Bangkit Academy",
     title: { id: "Mobile Development", en: "Mobile Development" },
-    period: "2024",
+    issuer: "Bangkit Academy by Google, GoTo, Traveloka",
+    period: { id: "September–Desember 2024", en: "September–December 2024" },
   },
   {
-    id: "myskill",
-    kind: "course",
-    institution: "MySkill",
-    title: {
-      id: "Artificial Intelligence Introduction",
-      en: "Artificial Intelligence Introduction",
-    },
+    // Issuer and date not confirmed yet, so they are omitted rather than guessed.
+    id: "toefl",
+    title: { id: "TOEFL Prediction", en: "TOEFL Prediction" },
   },
 ];

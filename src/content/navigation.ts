@@ -4,6 +4,7 @@ export const navItems = [
   { id: "stack", inHeader: true },
   { id: "about", inHeader: true },
   { id: "education", inHeader: false },
+  { id: "training", inHeader: false },
   { id: "contact", inHeader: true },
 ] as const;
 

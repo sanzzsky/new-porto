@@ -7,6 +7,7 @@ import { Expertise } from "@/components/sections/expertise";
 import { Hero } from "@/components/sections/hero";
 import { Projects } from "@/components/sections/projects";
 import { Stack } from "@/components/sections/stack";
+import { Training } from "@/components/sections/training";
 import { getDictionary, getLocale } from "@/lib/i18n";
 
 export default async function Page() {
@@ -23,6 +24,7 @@ export default async function Page() {
         <Stack t={t} />
         <About t={t} />
         <Education lang={lang} t={t} />
+        <Training lang={lang} t={t} />
         <Contact t={t} />
       </main>
       <SiteFooter t={t} />

@@ -26,6 +26,7 @@ const id = {
     stack: "Teknologi",
     about: "Tentang",
     education: "Pendidikan",
+    training: "Pelatihan",
     contact: "Kontak",
     cta: "Hubungi saya",
   },
@@ -80,9 +81,14 @@ const id = {
     groups: {
       mobile: "Pengembangan Mobile",
       frontend: "Pengembangan Frontend",
-      backend: "Backend & Database",
-      ai: "AI",
-      tools: "Tools",
+      backend: "Pengembangan Backend",
+      database: "Database",
+      ai: "AI & Machine Learning",
+      gis: "GIS & Data Spasial",
+      game: "Pengembangan Game",
+      tools: "Developer Tools",
+      design: "UI/UX & Desain",
+      productivity: "Produktivitas & Administrasi",
     },
   },
   about: {
@@ -100,7 +106,14 @@ const id = {
   education: {
     eyebrow: "Pendidikan",
     title: "Pendidikan & sertifikasi",
-    kinds: { education: "Pendidikan", program: "Program", course: "Kursus" },
+    kinds: { education: "Pendidikan", certification: "Sertifikasi" },
+  },
+  training: {
+    eyebrow: "Pelatihan",
+    title: "Pelatihan & pengembangan",
+    intro: "Pelatihan dan jalur pembelajaran yang telah saya selesaikan.",
+    completed: "Selesai",
+    topics: "Materi",
   },
   contact: {
     eyebrow: "Kontak",
@@ -155,6 +168,7 @@ const en: Dictionary = {
     stack: "Stack",
     about: "About",
     education: "Education",
+    training: "Training",
     contact: "Contact",
     cta: "Contact me",
   },
@@ -209,9 +223,14 @@ const en: Dictionary = {
     groups: {
       mobile: "Mobile Development",
       frontend: "Frontend Development",
-      backend: "Backend & Database",
-      ai: "AI",
-      tools: "Tools",
+      backend: "Backend Development",
+      database: "Database",
+      ai: "AI & Machine Learning",
+      gis: "GIS & Spatial Data",
+      game: "Game Development",
+      tools: "Developer Tools",
+      design: "UI/UX & Design",
+      productivity: "Productivity & Administration",
     },
   },
   about: {
@@ -229,7 +248,14 @@ const en: Dictionary = {
   education: {
     eyebrow: "Education",
     title: "Education & certifications",
-    kinds: { education: "Education", program: "Program", course: "Course" },
+    kinds: { education: "Education", certification: "Certification" },
+  },
+  training: {
+    eyebrow: "Training",
+    title: "Training & learning",
+    intro: "Training programmes and learning paths I have completed.",
+    completed: "Completed",
+    topics: "Topics",
   },
   contact: {
     eyebrow: "Contact",

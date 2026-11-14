@@ -83,7 +83,7 @@ export function Contact({ t }: { t: Dictionary }) {
       <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
         <div className="min-w-0 lg:col-span-7">
           <p className="font-mono text-[0.8125rem] uppercase tracking-[0.14em] text-accent-text">
-            <span aria-hidden="true">06 — </span>
+            <span aria-hidden="true">07 — </span>
             {t.contact.eyebrow}
           </p>
           <WordHighlight

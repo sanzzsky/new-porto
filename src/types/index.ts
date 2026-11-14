@@ -28,7 +28,7 @@ export interface Project {
   caveat?: Localized;
 }
 
-export type EducationKind = "education" | "program" | "course";
+export type EducationKind = "education" | "certification";
 
 export interface EducationEntry {
   id: string;
@@ -39,8 +39,40 @@ export interface EducationEntry {
   period?: string;
 }
 
+/** A formal certificate. Kept apart from training programmes on purpose. */
+export interface CertificationEntry {
+  id: string;
+  title: Localized;
+  /** Omitted when the issuer has not been confirmed. */
+  issuer?: string;
+  period?: Localized;
+}
+
+/** A course, programme or learning path that was worked through. */
+export interface TrainingEntry {
+  id: string;
+  title: Localized;
+  provider: string;
+  period: Localized;
+  /** Extra detail such as a duration. Never a grade or a score. */
+  meta?: Localized;
+  /** Modules the training covered, when the owner listed them. */
+  topics?: string[];
+  status: "completed";
+}
+
 export type DisciplineId = "android" | "web" | "ai";
-export type StackGroupId = "mobile" | "frontend" | "backend" | "ai" | "tools";
+export type StackGroupId =
+  | "mobile"
+  | "frontend"
+  | "backend"
+  | "database"
+  | "ai"
+  | "gis"
+  | "game"
+  | "tools"
+  | "design"
+  | "productivity";
 
 export interface Portrait {
   src: string;
